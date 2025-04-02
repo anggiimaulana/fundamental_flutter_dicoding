@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tourism_app/model/tourism.dart';
 import 'package:tourism_app/provider/detail/bookmark_list_provider.dart';
 import 'package:tourism_app/provider/index_nav_provider.dart';
 import 'package:tourism_app/screen/detail/detail_screen.dart';
@@ -12,14 +11,10 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => IndexNavProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => BookmarkListProvider(),
-        ),
+        ChangeNotifierProvider(create: (context) => IndexNavProvider()),
+        ChangeNotifierProvider(create: (context) => BookmarkListProvider()),
       ],
-        child: const MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -39,7 +34,7 @@ class MyApp extends StatelessWidget {
         NavigationRoute.mainRoute.name: (context) => const MainScreen(),
         NavigationRoute.detailRoute.name:
             (context) => DetailScreen(
-              tourism: ModalRoute.of(context)?.settings.arguments as Tourism,
+              tourismId: ModalRoute.of(context)?.settings.arguments as int,
             ),
       },
     );
