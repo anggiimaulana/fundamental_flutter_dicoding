@@ -38,8 +38,8 @@ class RestaurantDetailProvider extends ChangeNotifier {
     try {
       await _apiService.addCustomerReview(
         restaurantId,
-        reviewText,
         reviewerName,
+        reviewText,
       );
 
       try {
