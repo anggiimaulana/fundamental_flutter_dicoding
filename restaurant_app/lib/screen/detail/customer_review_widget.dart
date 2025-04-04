@@ -47,14 +47,14 @@ class _CustomerReviewWidgetState extends State<CustomerReviewWidget> {
         );
         await provider.addReview(
           widget.restaurantDetail.id,
-          _reviewController.text,
           _nameController.text,
+          _reviewController.text,
         );
 
         if (!mounted) return;
 
-        _reviewController.clear();
         _nameController.clear();
+        _reviewController.clear();
 
         _showSnackBar('Review berhasil dikirim!', Colors.green);
       } catch (_) {
@@ -120,6 +120,7 @@ class _CustomerReviewWidgetState extends State<CustomerReviewWidget> {
                                     style: Theme.of(context).textTheme.bodyLarge
                                         ?.copyWith(fontWeight: FontWeight.w600),
                                   ),
+                                  const SizedBox(height: 4),
                                   Text(
                                     review.review,
                                     textAlign: TextAlign.justify,

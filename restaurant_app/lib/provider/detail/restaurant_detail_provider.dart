@@ -32,14 +32,14 @@ class RestaurantDetailProvider extends ChangeNotifier {
 
   Future<void> addReview(
     String restaurantId,
-    String reviewText,
     String reviewerName,
+    String reviewText,
   ) async {
     try {
       await _apiService.addCustomerReview(
         restaurantId,
-        reviewerName,
         reviewText,
+        reviewerName,
       );
 
       try {
