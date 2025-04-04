@@ -11,29 +11,33 @@ class MenuWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Menu", style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox.square(dimension: 8),
+        const SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// Makanan
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Foods", style: Theme.of(context).textTheme.titleMedium),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        restaurantDetail.menus.foods.map((food) {
-                          return Text(
-                            "• ${food.name}",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          );
-                        }).toList(),
+                  const SizedBox(height: 8),
+                  ...restaurantDetail.menus.foods.map(
+                    (food) => Card(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(food.name),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
+
             const SizedBox(width: 16),
+
+            /// Minuman
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,15 +46,15 @@ class MenuWidget extends StatelessWidget {
                     "Drinks",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        restaurantDetail.menus.drinks.map((drink) {
-                          return Text(
-                            "• ${drink.name}",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          );
-                        }).toList(),
+                  const SizedBox(height: 8),
+                  ...restaurantDetail.menus.drinks.map(
+                    (drink) => Card(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(drink.name),
+                      ),
+                    ),
                   ),
                 ],
               ),
