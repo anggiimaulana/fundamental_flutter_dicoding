@@ -1,112 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/data/model/restaurant.dart';
+import 'package:restaurant_app/data/model/restaurant_detail_response.dart';
+import 'package:restaurant_app/screen/detail/customer_review_widget.dart';
+import 'package:restaurant_app/screen/detail/description_restaurant.dart';
+import 'package:restaurant_app/screen/detail/menu_widget.dart';
+import 'package:restaurant_app/data/api/api_service.dart';
 
 class BodyOfDetailScreenWidget extends StatelessWidget {
-  final Restaurant restaurant;
-  const BodyOfDetailScreenWidget({super.key, required this.restaurant});
+  final RestaurantDetail restaurantDetail;
+  final apiService = ApiService();
+
+  BodyOfDetailScreenWidget({super.key, required this.restaurantDetail});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Hero(
-                tag: restaurant.pictureId,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    20,
-                  ), // Menambahkan border-radius
-                  child: Image.network(
-                    restaurant.largeImage,
-                    fit: BoxFit.cover,
-                  ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Hero(
+              tag: restaurantDetail.pictureId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  restaurantDetail.largeImage,
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox.square(dimension: 16),
+            ),
+            const SizedBox(height: 16),
+            _buildHeader(context),
+            const SizedBox(height: 16),
+            DescriptionRestaurant(restaurantDetail: restaurantDetail),
+            const SizedBox(height: 16),
+            MenuWidget(restaurantDetail: restaurantDetail),
+            const SizedBox(height: 16),
+            CustomerReviewWidget(restaurantDetail: restaurantDetail),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                restaurantDetail.name,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const Icon(Icons.pin_drop, color: Colors.redAccent),
+                  const SizedBox(width: 4),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          restaurant.name,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.pin_drop, color: Colors.redAccent),
-                            const SizedBox.square(dimension: 4),
-                            Expanded(
-                              child: Text(
-                                restaurant.city,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.bodyLarge
-                                    ?.copyWith(fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox.square(dimension: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Description", style: TextTheme.of(context).titleLarge),
-                  Text(
-                    restaurant.description,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-              const SizedBox.square(dimension: 16),
-              Column(
-                children: [
-                  Text("Menu", style: TextTheme.of(context).titleLarge),
-                  Row(
-                    children: [
-                      Text("Foods", style: Theme.of(context).textTheme.titleMedium),
-                      // Text(restaurant.)
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox.square(dimension: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text("Review", style: TextTheme.of(context).titleLarge),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          const Icon(Icons.star, color: Colors.amber),
-                          const SizedBox.square(dimension: 4),
-                          Text(
-                            restaurant.rating.toString(),
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
+                    child: Text(
+                      restaurantDetail.city,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w400,
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

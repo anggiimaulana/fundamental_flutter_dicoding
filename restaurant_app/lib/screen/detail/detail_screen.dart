@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
@@ -30,7 +29,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           "Restaurant Detail",
           style: TextStyle(color: Colors.white),
@@ -43,8 +42,8 @@ class _DetailScreenState extends State<DetailScreen> {
             RestaurantDetailLoadingState() => const Center(
               child: CircularProgressIndicator(),
             ),
-            RestaurantDetailLoadedState(data: var restaurant) =>
-              BodyOfDetailScreenWidget(restaurant: restaurant),
+            RestaurantDetailLoadedState(data: var restaurantDetail) =>
+              BodyOfDetailScreenWidget(restaurantDetail: restaurantDetail),
             RestaurantDetailErrorState(error: var message) => Center(
               child: Text(message),
             ),

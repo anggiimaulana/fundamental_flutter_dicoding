@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:restaurant_app/data/model/restaurant_detail_response.dart';
 import 'package:restaurant_app/data/model/restaurant_list_response.dart';
 import 'package:http/http.dart' as http;
-import 'package:restaurant_app/data/model/customer_review.dart';
 import 'package:restaurant_app/data/model/restaurant_search_response.dart';
 
 class ApiService {
@@ -38,38 +37,16 @@ class ApiService {
     }
   }
 
-  Future<List<CustomerReview>> getRestaurantReview(String id) async {
-    final response = await http.get(Uri.parse("$_baseUrl/detail/$id"));
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return List<CustomerReview>.from(
-        data["restaurant"]["customerReviews"].map(
-          (x) => CustomerReview.fromJson(x),
-        ),
-      );
-    } else {
-      throw Exception('Failed to load restaurant reviews');
-    }
-  }
-
-  Future<List<CustomerReview>> addReview(
-    String id,
-    String name,
-    String review,
-  ) async {
+  Future<void> addCustomerReview(String id, String name, String review) async {
     final response = await http.post(
-      Uri.parse("$_baseUrl/review"),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"id": id, "name": name, "review": review}),
+      Uri.parse('$_baseUrl/review'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'id': id, 'name': name, 'review': review}),
     );
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return List<CustomerReview>.from(
-        data["customerReviews"].map((x) => CustomerReview.fromJson(x)),
-      );
-    } else {
+    final data = jsonDecode(response.body);
+    if (!(response.statusCode == 200 || response.statusCode == 201) ||
+        data['error'] == true) {
       throw Exception('Failed to add review');
     }
   }
