@@ -20,7 +20,10 @@ class MainScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(14), topRight: Radius.circular(14)),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(14),
+          topRight: Radius.circular(14),
+        ),
         child: BottomNavigationBar(
           backgroundColor: RestaurantColor.blue.color,
           selectedItemColor: Colors.white,

@@ -32,7 +32,7 @@ class Restaurant {
     "city": city,
     "rating": rating,
   };
-  
+
   String get smallImage =>
       "https://restaurant-api.dicoding.dev/images/small/$pictureId";
   String get mediumImage =>

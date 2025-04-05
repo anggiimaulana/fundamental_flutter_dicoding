@@ -24,7 +24,7 @@ class RestaurantListResponse {
                 .toList() ??
             [],
       );
-      
+
   Map<String, dynamic> toJson() => {
     "error": error,
     "message": message,

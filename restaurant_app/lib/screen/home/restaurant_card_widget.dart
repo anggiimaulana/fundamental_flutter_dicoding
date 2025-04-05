@@ -43,8 +43,9 @@ class RestaurantCardWidget extends StatelessWidget {
                     children: [
                       Text(
                         restaurant.name,
-                        style: Theme.of(context).textTheme.bodyLarge
-                            ?.copyWith(fontWeight: FontWeight.w600),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       const SizedBox.square(dimension: 6),
                       Row(
@@ -56,7 +57,8 @@ class RestaurantCardWidget extends StatelessWidget {
                               restaurant.city,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.w400),
                             ),
                           ),
                         ],
@@ -69,7 +71,8 @@ class RestaurantCardWidget extends StatelessWidget {
                           Expanded(
                             child: Text(
                               restaurant.rating.toString(),
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.w400),
                             ),
                           ),
                         ],

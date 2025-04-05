@@ -1,21 +1,22 @@
 import 'dart:convert';
 
-class CustomerReview {
+class RestaurantCustomerReview {
   String name;
   String review;
   String date;
 
-  CustomerReview({
+  RestaurantCustomerReview({
     required this.name,
     required this.review,
     required this.date,
   });
 
-  factory CustomerReview.fromJson(Map<String, dynamic> json) => CustomerReview(
-    name: json["name"],
-    review: json["review"],
-    date: json["date"],
-  );
+  factory RestaurantCustomerReview.fromJson(Map<String, dynamic> json) =>
+      RestaurantCustomerReview(
+        name: json["name"],
+        review: json["review"],
+        date: json["date"],
+      );
 
   Map<String, dynamic> toJson() => {
     "name": name,
@@ -27,7 +28,7 @@ class CustomerReview {
 class AddReviewResponse {
   final bool error;
   final String message;
-  final List<CustomerReview> customerReviews;
+  final List<RestaurantCustomerReview> customerReviews;
 
   AddReviewResponse({
     required this.error,
@@ -42,8 +43,10 @@ class AddReviewResponse {
       AddReviewResponse(
         error: json["error"],
         message: json["message"],
-        customerReviews: List<CustomerReview>.from(
-          json["customerReviews"].map((x) => CustomerReview.fromJson(x)),
+        customerReviews: List<RestaurantCustomerReview>.from(
+          json["customerReviews"].map(
+            (x) => RestaurantCustomerReview.fromJson(x),
+          ),
         ),
       );
 

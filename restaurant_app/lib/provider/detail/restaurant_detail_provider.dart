@@ -10,6 +10,14 @@ class RestaurantDetailProvider extends ChangeNotifier {
   RestaurantDetailResultState _resultState = RestaurantDetailNoneState();
   RestaurantDetailResultState get resultState => _resultState;
 
+  bool _isSubmitting = false;
+  bool get isSubmitting => _isSubmitting;
+
+  void setSubmitting(bool value) {
+    _isSubmitting = value;
+    notifyListeners();
+  }
+
   Future<void> fetchRestaurantDetail(String id) async {
     try {
       _resultState = RestaurantDetailLoadingState();
@@ -43,9 +51,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
       );
 
       try {
-        await fetchRestaurantDetail(
-          restaurantId,
-        );
+        await fetchRestaurantDetail(restaurantId);
       } catch (e) {
         debugPrint("Review berhasil, tapi gagal refresh data: $e");
       }

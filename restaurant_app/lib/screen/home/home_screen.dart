@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -31,12 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 80,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Restaurants", style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
-                Text("Recommendation restaurant for your!", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
-              ],
+          children: [
+            Text(
+              "Restaurants",
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(color: Colors.white),
             ),
-            backgroundColor: RestaurantColor.blue.color,
+            Text(
+              "Recommendation restaurant for your!",
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(color: Colors.white),
+            ),
+          ],
+        ),
+        backgroundColor: RestaurantColor.blue.color,
       ),
       body: Consumer<RestaurantListProvider>(
         builder: (context, value, child) {

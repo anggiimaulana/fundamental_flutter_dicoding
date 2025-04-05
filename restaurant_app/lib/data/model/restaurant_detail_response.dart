@@ -1,6 +1,6 @@
-import 'package:restaurant_app/data/model/customer_review.dart';
-import 'package:restaurant_app/data/model/category.dart';
-import 'package:restaurant_app/data/model/menus.dart';
+import 'package:restaurant_app/data/model/restaurant_customer_review.dart';
+import 'package:restaurant_app/data/model/restaurant_menu_category.dart';
+import 'package:restaurant_app/data/model/restaurant_menu.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
 
 class RestaurantDetailResponse {
@@ -30,9 +30,9 @@ class RestaurantDetailResponse {
 
 class RestaurantDetail extends Restaurant {
   final String address;
-  final List<Category> categories;
-  final Menus menus;
-  final List<CustomerReview> customerReviews;
+  final List<RestaurantMenuCategory> categories;
+  final RestaurantMenu menus;
+  final List<RestaurantCustomerReview> customerReviews;
 
   RestaurantDetail({
     required super.id,
@@ -58,13 +58,13 @@ class RestaurantDetail extends Restaurant {
       address: json["address"] ?? "",
       categories:
           (json["categories"] as List<dynamic>?)
-              ?.map((x) => Category.fromJson(x))
+              ?.map((x) => RestaurantMenuCategory.fromJson(x))
               .toList() ??
           [],
-      menus: Menus.fromJson(json["menus"] ?? {}),
+      menus: RestaurantMenu.fromJson(json["menus"] ?? {}),
       customerReviews:
           (json["customerReviews"] as List<dynamic>?)
-              ?.map((x) => CustomerReview.fromJson(x))
+              ?.map((x) => RestaurantCustomerReview.fromJson(x))
               .toList() ??
           [],
     );
