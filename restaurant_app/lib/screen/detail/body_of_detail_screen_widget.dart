@@ -62,7 +62,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
-                      restaurantDetail.city,
+                      "${restaurantDetail.address}, ${restaurantDetail.city}",
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(

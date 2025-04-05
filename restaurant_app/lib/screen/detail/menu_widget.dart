@@ -15,7 +15,6 @@ class MenuWidget extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Makanan
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +36,6 @@ class MenuWidget extends StatelessWidget {
 
             const SizedBox(width: 16),
 
-            /// Minuman
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
