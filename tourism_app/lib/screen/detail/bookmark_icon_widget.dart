@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tourism_app/data/model/tourism.dart';
+import 'package:tourism_app/provider/bookmark/local_database_provider.dart';
 import 'package:tourism_app/provider/detail/bookmark_icon_provider.dart';
-import 'package:tourism_app/provider/detail/bookmark_list_provider.dart';
 
 class BookmarkIconWidget extends StatefulWidget {
   final Tourism tourism;
@@ -13,18 +13,26 @@ class BookmarkIconWidget extends StatefulWidget {
 }
 
 class _BookmarkIconWidgetState extends State<BookmarkIconWidget> {
-
   @override
   void initState() {
     super.initState();
-    final bookmarkListProvider = context.read<BookmarkListProvider>();
+    final localDatabaseProvider = context.read<LocalDatabaseProvider>();
     final bookmarkIconProvider = context.read<BookmarkIconProvider>();
 
-    Future.microtask(() {
-      final tourismInList = bookmarkListProvider.checkItemBookmark(
-        widget.tourism,
-      );
-      bookmarkIconProvider.isBookmarked = tourismInList;
+    Future.microtask(() async {
+      await localDatabaseProvider.loadTourismById(widget.tourism.id);
+
+      if (localDatabaseProvider.tourism != null) {
+        final value = localDatabaseProvider.checkItemBookmark(
+          widget.tourism.id,
+        );
+        bookmarkIconProvider.isBookmarked = value;
+      } else {
+        bookmarkIconProvider.isBookmarked = false;
+      }
+
+      // final value = localDatabaseProvider.checkItemBookmark(widget.tourism.id);
+      // bookmarkIconProvider.isBookmarked = value;
     });
   }
 
@@ -33,16 +41,17 @@ class _BookmarkIconWidgetState extends State<BookmarkIconWidget> {
     return IconButton(
       onPressed: () {
         setState(() {
-          final bookmarkListProvider = context.read<BookmarkListProvider>();
+          final localDatabaseProvider = context.read<LocalDatabaseProvider>();
           final bookmarkIconProvider = context.read<BookmarkIconProvider>();
           final isBookmarked = bookmarkIconProvider.isBookmarked;
 
           if (!isBookmarked) {
-            bookmarkListProvider.addBookmark(widget.tourism);
+            localDatabaseProvider.saveTourism(widget.tourism);
           } else {
-            bookmarkListProvider.removeBookmark(widget.tourism);
+            localDatabaseProvider.removeTourismById(widget.tourism.id);
           }
           bookmarkIconProvider.isBookmarked = !isBookmarked;
+          localDatabaseProvider.loadlAllTourism();
         });
       },
       icon: Icon(

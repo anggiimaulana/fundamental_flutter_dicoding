@@ -1,24 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:tourism_app/data/model/tourism.dart';
+// TIDAK TERPAKAI LAGI
 
-class BookmarkListProvider extends ChangeNotifier {
-  final List<Tourism> _bookmarkList = [];
-  List<Tourism> get bookmarkList => _bookmarkList;
+// import 'package:flutter/material.dart';
+// import 'package:tourism_app/data/model/tourism.dart';
 
-  void addBookmark(Tourism value) {
-    _bookmarkList.add(value);
-    notifyListeners();
-  }
+// class BookmarkListProvider extends ChangeNotifier {
+//   final List<Tourism> _bookmarkList = [];
+//   List<Tourism> get bookmarkList => _bookmarkList;
 
-  void removeBookmark(Tourism value) {
-    _bookmarkList.removeWhere((element) => element.id == value.id);
-    notifyListeners();
-  }
+//   void addBookmark(Tourism value) {
+//     _bookmarkList.add(value);
+//     notifyListeners();
+//   }
 
-  bool checkItemBookmark(Tourism value) {
-    final tourismInList = _bookmarkList.where(
-      (element) => element.id == value.id,
-    );
-    return tourismInList.isNotEmpty;
-  }
-}
+//   void removeBookmark(Tourism value) {
+//     _bookmarkList.removeWhere((element) => element.id == value.id);
+//     notifyListeners();
+//   }
+
+//   bool checkItemBookmark(Tourism value) {
+//     final tourismInList = _bookmarkList.where(
+//       (element) => element.id == value.id,
+//     );
+//     return tourismInList.isNotEmpty;
+//   }
+// }
