@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
+
+final StreamController<String?> selectNotificationStream =
+    StreamController<String?>.broadcast();
 
 class LocalNotificationService {
   Future<void> init() async {
@@ -21,7 +26,15 @@ class LocalNotificationService {
       iOS: initializationSettingsDarwin,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveBackgroundNotificationResponse: (notificationResponse) {
+        final payload = notificationResponse.payload;
+        if (payload != null && payload.isNotEmpty) {
+          selectNotificationStream.add(payload);
+        }
+      },
+    );
   }
 
   Future<bool> _isAndroidPermissionGranted() async {
@@ -81,17 +94,22 @@ class LocalNotificationService {
       channelName,
       importance: Importance.max,
       priority: Priority.high,
+      sound: const RawResourceAndroidNotificationSound('slow_spring_board'),
     );
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
     final notificationDetails = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
     );
-    await flutterLocalNotificationsPlugin.show(
-      id,
-      title,
-      body,
-      notificationDetails,
-    );
+    try {
+      await flutterLocalNotificationsPlugin.show(
+        id,
+        title,
+        body,
+        notificationDetails,
+      );
+    } catch (e) {
+      debugPrint("Error showing notification: $e");
+    }
   }
 }

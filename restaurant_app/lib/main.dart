@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
+import 'package:restaurant_app/data/local/local_database_service.dart';
+import 'package:restaurant_app/provider/bookmark/local_database_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/provider/index_nav_provider.dart';
@@ -16,6 +18,12 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => IndexNavProvider()),
         Provider(create: (context) => ApiService()),
+        Provider(create: (context) => LocalDatabaseService()),
+        ChangeNotifierProvider(
+          create:
+              (context) =>
+                  LocalDatabaseProvider(context.read<LocalDatabaseService>()),
+        ),
         ChangeNotifierProvider(
           create:
               (context) => RestaurantListProvider(context.read<ApiService>()),

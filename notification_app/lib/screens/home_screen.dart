@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/providers/local_notification_provider.dart';
+import 'package:notification_app/providers/payload_provider.dart';
+import 'package:notification_app/services/local_notification_service.dart';
+import 'package:notification_app/static/my_route.dart';
 import 'package:notification_app/widgets/my_divider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +14,34 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  Future<void> _requestPermission() async {
+    context.read<LocalNotificationProvide>().requestPermission();
+  }
+
+  Future<void> _showNotification() async {
+    context.read<LocalNotificationProvide>().showNotification();
+  }
+
+  void _configureSelectNotificationSubject() {
+    selectNotificationStream.stream.listen((String? payload) {
+      context.read<PayloadProvider>().payload = payload;
+      Navigator.pushNamed(context, MyRoute.detail.name, arguments: payload);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _configureSelectNotificationSubject();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    selectNotificationStream.close();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () async {
                   await _requestPermission();
                 },
-                child: const Text(
-                  "Request permission! (false)",
-                  textAlign: TextAlign.center,
+                child: Consumer<LocalNotificationProvide>(
+                  builder: (context, value, child) {
+                    return Text(
+                      "Request permission! ${(value.permission)}",
+                      textAlign: TextAlign.center,
+                    );
+                  },
                 ),
               ),
               ElevatedButton(
@@ -99,10 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  Future<void> _requestPermission() async {}
-
-  Future<void> _showNotification() async {}
 
   Future<void> _showBigPictureNotification() async {}
 
