@@ -1,4 +1,4 @@
-import 'package:restaurant_app/data/model/restaurant_menu_category.dart';
+import 'package:restaurant_app/data/model/restaurant/restaurant_menu_category.dart';
 
 class RestaurantMenu {
   List<RestaurantMenuCategory> foods;

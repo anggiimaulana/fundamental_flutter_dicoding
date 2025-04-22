@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/data/model/restaurant_detail_response.dart';
+import 'package:restaurant_app/data/model/restaurant/restaurant_detail_response.dart';
 
 class DescriptionRestaurant extends StatelessWidget {
   final RestaurantDetail restaurantDetail;

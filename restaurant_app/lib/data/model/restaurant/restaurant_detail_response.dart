@@ -1,7 +1,7 @@
-import 'package:restaurant_app/data/model/restaurant_customer_review.dart';
-import 'package:restaurant_app/data/model/restaurant_menu_category.dart';
-import 'package:restaurant_app/data/model/restaurant_menu.dart';
-import 'package:restaurant_app/data/model/restaurant.dart';
+import 'package:restaurant_app/data/model/restaurant/restaurant_customer_review.dart';
+import 'package:restaurant_app/data/model/restaurant/restaurant_menu_category.dart';
+import 'package:restaurant_app/data/model/restaurant/restaurant_menu.dart';
+import 'package:restaurant_app/data/model/restaurant/restaurant.dart';
 
 class RestaurantDetailResponse {
   bool error;

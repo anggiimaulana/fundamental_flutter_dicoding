@@ -4,6 +4,7 @@ import 'package:restaurant_app/provider/index_nav_provider.dart';
 import 'package:restaurant_app/screen/bookmark/bookmark_screen.dart';
 import 'package:restaurant_app/screen/home/home_screen.dart';
 import 'package:restaurant_app/screen/search/search_screen.dart';
+import 'package:restaurant_app/screen/setting/setting_screen.dart';
 import 'package:restaurant_app/style/colors/restaurant_color.dart';
 
 class MainScreen extends StatelessWidget {
@@ -17,7 +18,8 @@ class MainScreen extends StatelessWidget {
           return switch (value.indexBottomNavBar) {
             0 => const HomeScreen(),
             1 => const SearchScreen(),
-            _ => const BookmarkScreen(),
+            2 => const BookmarkScreen(),
+            _ => const SettingScreen(),
           };
         },
       ),
@@ -27,6 +29,7 @@ class MainScreen extends StatelessWidget {
           topRight: Radius.circular(14),
         ),
         child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           backgroundColor: RestaurantColor.blue.color,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white70,
@@ -51,6 +54,11 @@ class MainScreen extends StatelessWidget {
               icon: Icon(Icons.bookmark),
               label: "Bookmark",
               tooltip: "Bookmark",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Setting",
+              tooltip: "Setting",
             ),
           ],
         ),
