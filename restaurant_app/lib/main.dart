@@ -72,7 +72,11 @@ void main() async {
               (context) => RestaurantDetailProvider(context.read<ApiService>()),
         ),
 
-        ChangeNotifierProvider(create: (_) => ThemeStateProvider()),
+        ChangeNotifierProvider(
+          create:
+              (context) =>
+                  ThemeStateProvider(context.read<SharedPreferencesService>()),
+        ),
 
         ChangeNotifierProxyProvider<
           LocalNotificationService,
