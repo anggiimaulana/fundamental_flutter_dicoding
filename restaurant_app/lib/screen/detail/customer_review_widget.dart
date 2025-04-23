@@ -72,7 +72,6 @@ class _CustomerReviewWidgetState extends State<CustomerReviewWidget> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header Review
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -94,7 +93,6 @@ class _CustomerReviewWidgetState extends State<CustomerReviewWidget> {
             ),
             const SizedBox(height: 8),
 
-            // Review List
             if (state is RestaurantDetailLoadingState)
               const Center(child: CircularProgressIndicator())
             else if (state is RestaurantDetailErrorState)
@@ -150,7 +148,6 @@ class _CustomerReviewWidgetState extends State<CustomerReviewWidget> {
 
             const SizedBox(height: 24),
 
-            // Form Review
             Text(
               "Tambah Review",
               style: Theme.of(context).textTheme.titleMedium,

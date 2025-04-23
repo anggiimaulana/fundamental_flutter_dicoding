@@ -8,6 +8,9 @@ class RestaurantListProvider extends ChangeNotifier {
 
   RestaurantListResultState _resultState = RestaurantListNoneState();
   RestaurantListResultState get resultState => _resultState;
+  RestaurantListResultState setResultStateForTest(
+    RestaurantListResultState state,
+  ) => _resultState = state;
 
   Future<void> fetchRestaurantList() async {
     try {

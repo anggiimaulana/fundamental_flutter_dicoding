@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/provider/setting/notification_state_provider.dart';
+import 'package:restaurant_app/provider/setting/theme_state_provider.dart';
 import 'package:restaurant_app/provider/setting/title_form_widget.dart';
-import 'package:restaurant_app/utils/notification_state.dart';
+import 'package:restaurant_app/utils/theme_state.dart';
 
 class ThemeFieldWidget extends StatefulWidget {
   const ThemeFieldWidget({super.key});
@@ -20,12 +20,12 @@ class _ThemeFieldWidgetState extends State<ThemeFieldWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TitleForm('Notification:'),
+          const TitleForm('Theme Setting:'),
           const SizedBox.square(dimension: 4),
-          ...NotificationState.values.map(
-            (state) => Consumer<NotificationStateProvider>(
+          ...ThemeState.values.map(
+            (state) => Consumer<ThemeStateProvider>(
               builder: (_, provider, __) {
-                return RadioListTile<NotificationState>(
+                return RadioListTile<ThemeState>(
                   value: state,
                   groupValue: provider.notificationState,
                   contentPadding: const EdgeInsets.all(0),

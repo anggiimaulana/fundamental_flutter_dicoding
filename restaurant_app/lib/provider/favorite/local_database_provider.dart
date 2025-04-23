@@ -19,12 +19,8 @@ class LocalDatabaseProvider extends ChangeNotifier {
   Future<void> saveRestaurant(Restaurant value) async {
     try {
       final result = await _service.insertItem(value);
-      final isError = result == 0;
-      if (isError) {
-        _message = "Failed to save your data";
-      } else {
-        _message = "Your data has been saved";
-      }
+      _message =
+          result == 0 ? "Failed to save your data" : "Your data has been saved";
     } catch (e) {
       _message = "Failed to save your data: $e";
     }
@@ -36,29 +32,28 @@ class LocalDatabaseProvider extends ChangeNotifier {
       _restaurantList = await _service.getAllItems();
       _restaurant = null;
       _message = "All of your data is loaded";
-      notifyListeners();
     } catch (e) {
       _message = "Failed to load your data: $e";
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   Future<void> loadRestaurantById(String id) async {
     try {
       _restaurant = await _service.getItemById(id);
       _message = "Your data is loaded";
-      notifyListeners();
     } catch (e) {
       _message = "Failed to load your data: $e";
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   Future<void> removeRestaurantById(String id) async {
     try {
       await _service.removeItem(id);
       _message = "Your data has been removed";
-      notifyListeners();
+
+      await loadAllRestaurant();
     } catch (e) {
       _message = "Failed to remove your data: $e";
       notifyListeners();
@@ -66,7 +61,15 @@ class LocalDatabaseProvider extends ChangeNotifier {
   }
 
   bool checkItemBookmark(String id) {
-    final isSameRestaurant = _restaurant?.id == id;
-    return isSameRestaurant;
+    return _restaurant?.id == id;
+  }
+
+  Future<bool> isRestaurantBookmarked(String id) async {
+    try {
+      final restaurant = await _service.getItemById(id);
+      return restaurant != null;
+    } catch (_) {
+      return false;
+    }
   }
 }

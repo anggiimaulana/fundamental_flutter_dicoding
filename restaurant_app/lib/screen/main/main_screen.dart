@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/index_nav_provider.dart';
-import 'package:restaurant_app/screen/bookmark/bookmark_screen.dart';
+import 'package:restaurant_app/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/screen/home/home_screen.dart';
 import 'package:restaurant_app/screen/search/search_screen.dart';
 import 'package:restaurant_app/screen/setting/setting_screen.dart';
@@ -18,7 +18,7 @@ class MainScreen extends StatelessWidget {
           return switch (value.indexBottomNavBar) {
             0 => const HomeScreen(),
             1 => const SearchScreen(),
-            2 => const BookmarkScreen(),
+            2 => const FavoriteScreen(),
             _ => const SettingScreen(),
           };
         },
@@ -32,7 +32,7 @@ class MainScreen extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
           backgroundColor: RestaurantColor.blue.color,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white70,
+          unselectedItemColor: Colors.white,
           selectedIconTheme: IconThemeData(color: Colors.white),
           unselectedIconTheme: IconThemeData(color: Colors.white70),
           currentIndex: context.watch<IndexNavProvider>().indexBottomNavBar,
@@ -51,9 +51,9 @@ class MainScreen extends StatelessWidget {
               tooltip: "Search",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark),
-              label: "Bookmark",
-              tooltip: "Bookmark",
+              icon: Icon(Icons.favorite),
+              label: "Favorite",
+              tooltip: "Favorite",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
