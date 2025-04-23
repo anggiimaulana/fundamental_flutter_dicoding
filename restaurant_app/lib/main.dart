@@ -18,6 +18,7 @@ import 'package:restaurant_app/service/local_notification_services.dart';
 import 'package:restaurant_app/service/shared_preferences_service.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/style/theme/restaurant_theme.dart';
+import 'package:restaurant_app/utils/theme_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -97,25 +98,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Restaurant App',
-      theme: RestaurantTheme.lightTheme,
-      darkTheme: RestaurantTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      initialRoute: NavigationRoute.mainRoute.name,
-      routes: {
-        NavigationRoute.mainRoute.name: (context) => const MainScreen(),
-        NavigationRoute.detailRoute.name: (context) {
-          final args = ModalRoute.of(context)?.settings.arguments;
-          if (args is String) {
-            return DetailScreen(restaurantId: args);
-          } else {
-            return const Scaffold(
-              body: Center(child: Text("Error: No restaurant ID provided.")),
-            );
-          }
-        },
+    return Consumer<ThemeStateProvider>(
+      builder: (context, themeProvider, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Restaurant App',
+          theme: RestaurantTheme.lightTheme,
+          darkTheme: RestaurantTheme.darkTheme,
+          themeMode:
+              themeProvider.notificationState == ThemeState.lightTheme
+                  ? ThemeMode.light
+                  : ThemeMode.dark,
+          initialRoute: NavigationRoute.mainRoute.name,
+          routes: {
+            NavigationRoute.mainRoute.name: (context) => const MainScreen(),
+            NavigationRoute.detailRoute.name: (context) {
+              final args = ModalRoute.of(context)?.settings.arguments;
+              if (args is String) {
+                return DetailScreen(restaurantId: args);
+              } else {
+                return const Scaffold(
+                  body: Center(
+                    child: Text("Error: No restaurant ID provided."),
+                  ),
+                );
+              }
+            },
+          },
+        );
       },
     );
   }
